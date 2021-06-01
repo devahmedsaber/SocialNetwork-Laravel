@@ -13,9 +13,7 @@
 
 // Home
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/alert', function(){
     return redirect()->route('home')->with('info', 'You Have Logged.');
@@ -48,3 +46,9 @@ Route::group(['middleware' => 'auth'], function(){
 // Friends
 
 Route::get('/friends', 'FriendController@getIndex')->middleware('auth')->name('friends.index');
+Route::get('/friends/add/{username}', 'FriendController@getAdd')->middleware('auth')->name('friends.add');
+Route::get('/friends/accept/{username}', 'FriendController@getAccept')->middleware('auth')->name('friends.accept');
+
+// Statuses
+
+Route::post('/status', 'StatusController@postStatus')->middleware('auth')->name('status.post');
