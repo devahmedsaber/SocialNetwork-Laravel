@@ -48,7 +48,7 @@
                                 </div>
                             @endforeach
 
-                            <!-- @if($authUserIsFriend || Auth::user()->id === $status->user->id) -->
+                            @if($authUserIsFriend || Auth::user()->id === $status->user->id)
                                 <form role="form" action="{{ route('status.reply', ['statusId' => $status->id]) }}" method="post">
                                     @csrf
                                     <div class="form-group{{ $errors->has("reply-{$status->id}") ? ' has-error' : '' }}">
@@ -59,7 +59,7 @@
                                     </div>
                                     <input type="submit" value="Reply" class="btn btn-default btn-sm" name="" id="">
                                 </form>
-                            <!-- @endif -->
+                            @endif
                         </div>
                     </div>
                 @endforeach
@@ -73,6 +73,12 @@
                 <a href="{{ route('friends.accept', ['username' => $user->username]) }}" class="btn btn-primary">Accept Friend Request</a>
             @elseif(Auth::user()->isFriendWith($user))
                 <p>You And {{ $user->getNameOrUsername() }} Are Friends.</p>
+
+                <form action="{{ route('friends.delete', ['username' => $user->username]) }}" method="post">
+                    @csrf
+                    <input class="btn btn-danger" type="submit" value="Delete Friend">
+                </form>
+
             @elseif(Auth::user()->id !== $user->id)
                 <a href="{{ route('friends.add', ['username' => $user->username]) }}" class="btn btn-primary">Add Friend</a>
             @endif

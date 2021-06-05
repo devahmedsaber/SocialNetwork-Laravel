@@ -48,6 +48,8 @@ Route::group(['middleware' => 'auth'], function(){
 Route::get('/friends', 'FriendController@getIndex')->middleware('auth')->name('friends.index');
 Route::get('/friends/add/{username}', 'FriendController@getAdd')->middleware('auth')->name('friends.add');
 Route::get('/friends/accept/{username}', 'FriendController@getAccept')->middleware('auth')->name('friends.accept');
+Route::post('/friends/delete/{username}', 'FriendController@postDelete')->middleware('auth')->name('friends.delete');
+
 
 // Statuses
 
